@@ -71,28 +71,32 @@ def get_infos():
     result = infos_schema.dump(all_infos)
     return jsonify(result.data)
 
-# @app.route("/info/<id>", methods=["PUT"])
-# def update_info(id):
+@app.route("/info/<id>", methods=["PUT"])
+def update_info(id):
 
-#     info = Info.query.get(id)
+    info = Info.query.get(id)
 
-#     new_title = request.json["title"]
-#     new_done = request.json["done"]
+    first_name = request.json["first_name"]
+    last_name = request.json["last_name"]
+    birthday = request.json["birthday"]
+    special_skill = request.json["special_skill"]
 
-#     info.title = new_title
-#     info.done = new_done
+    info.first_name = first_name
+    info.last_name = last_name
+    info.birthday = birthday
+    info.special_skill = special_skill
 
-#     db.session.commit()
-#     return info_schema.jsonify(info)
+    db.session.commit()
+    return info_schema.jsonify(info)
 
 
-# @app.route("/info/<id>", methods=["DELETE"])
-# def delete_info(id):
-#     record = Info.query.get(id)
-#     db.session.delete(record)
-#     db.session.commit()
+@app.route("/info/<id>", methods=["DELETE"])
+def delete_info(id):
+    record = Info.query.get(id)
+    db.session.delete(record)
+    db.session.commit()
 
-#     return jsonify("RECORD DELETED!")
+    return jsonify("RECORD DELETED!")
 
 if __name__ == "__main__":
     app.debug = True
